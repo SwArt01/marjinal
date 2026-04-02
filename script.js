@@ -120,10 +120,10 @@ if (contactForm) {
     }
 
     const waText = encodeURIComponent(
-      `Merhaba Marjin Club!\n\nAd: ${name}\nTelefon: ${phone}\nKonu: ${subject || 'Belirtilmedi'}\nMesaj: ${message || '—'}`
+      `Merhaba Marjin Club!\n\nBaşvuru Formu:\n\nAd: ${name}\nTelefon: ${phone}\nPozisyon: ${subject || 'Belirtilmedi'}\nHakkımda: ${message || '—'}`
     );
-    window.open(`https://wa.me/905001234567?text=${waText}`, '_blank');
-    showToast('WhatsApp\'a yönlendiriliyorsunuz...', 'success');
+    window.open(`https://wa.me/905327121580?text=${waText}`, '_blank');
+    showToast('Başvurunuz WhatsApp\'a iletiliyor...', 'success');
     contactForm.reset();
   });
 }
@@ -159,10 +159,4 @@ function showToast(msg, type = 'success') {
   }, 3500);
 }
 
-/* === SMOOTH PARALLAX ON HERO === */
-window.addEventListener('scroll', () => {
-  const hero = document.querySelector('.hero');
-  if (hero && window.scrollY < window.innerHeight) {
-    hero.style.backgroundPositionY = `${window.scrollY * 0.35}px`;
-  }
-});
+/* Slideshow aktif olduğu için parallax scroll devre dışı */

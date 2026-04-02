@@ -10,16 +10,18 @@
 }
 
 :root {
-  --gold: #c9a84c;
-  --gold-light: #e8c96e;
-  --gold-dark: #a37c2a;
-  --black: #050505;
-  --dark: #0d0d0d;
-  --dark-2: #141414;
-  --dark-3: #1c1c1c;
+  /* === Logo renk paleti: Neon pembe + lacivert === */
+  --gold: #e040fb;          /* neon magenta/pembe (ana vurgu) */
+  --gold-light: #f06fff;    /* açık pembe hover */
+  --gold-dark: #b820d4;     /* koyu magenta */
+  --accent2: #a78bfa;       /* lila / lavanta (ikincil) */
+  --black: #04080f;         /* çok koyu lacivert */
+  --dark: #080f1e;          /* koyu lacivert */
+  --dark-2: #0d1628;        /* orta lacivert */
+  --dark-3: #152040;        /* biraz daha açık lacivert */
   --white: #ffffff;
-  --gray: #888888;
-  --gray-light: #cccccc;
+  --gray: #7a88aa;
+  --gray-light: #c0cce0;
   --font-main: 'Montserrat', sans-serif;
   --font-display: 'Playfair Display', serif;
   --transition: 0.35s ease;
@@ -170,27 +172,30 @@ img {
 /* LOGO */
 .logo {
   display: flex;
-  flex-direction: column;
-  line-height: 1;
-  letter-spacing: 3px;
+  align-items: center;
   flex-shrink: 0;
+  line-height: 1;
 }
 
-.logo-marjin {
-  font-family: var(--font-main);
-  font-size: 1.4rem;
-  font-weight: 900;
-  color: var(--gold);
-  letter-spacing: 6px;
+/* Resim logo */
+.logo-img {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(1.05);
+  transition: opacity var(--transition);
 }
 
-.logo-club {
-  font-family: var(--font-main);
-  font-size: 0.65rem;
-  font-weight: 300;
-  color: var(--white);
-  letter-spacing: 6px;
-  margin-top: 1px;
+.logo-img:hover {
+  opacity: 0.85;
+}
+
+/* Footer logo img */
+.footer-logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 16px;
 }
 
 /* NAV */
@@ -278,30 +283,165 @@ img {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background-image: url('images/hero.jpg');
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* =========================================
+   HERO SLIDESHOW
+   ========================================= */
+.hero-slides {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
-  overflow: hidden;
+  opacity: 0;
+  animation: heroFade 24s infinite;
+  will-change: transform, opacity;
+}
+
+/* Her slide için farklı resim ve farklı Ken Burns yönü */
+.slide-1 {
+  background-image: url('images/hero.jpg');
+  animation-delay: 0s;
+  animation-name: heroFade, kenBurns1;
+}
+.slide-2 {
+  background-image: url('images/stage.jpg');
+  animation-delay: 6s;
+  animation-name: heroFade, kenBurns2;
+}
+.slide-3 {
+  background-image: url('images/dance.jpg');
+  animation-delay: 12s;
+  animation-name: heroFade, kenBurns3;
+}
+.slide-4 {
+  background-image: url('images/vip.jpg');
+  animation-delay: 18s;
+  animation-name: heroFade, kenBurns4;
+}
+
+/* Crossfade: 4 slide x 6 sn = 24 sn toplam */
+@keyframes heroFade {
+  0%   { opacity: 0; }
+  4%   { opacity: 1; }
+  25%  { opacity: 1; }
+  29%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Ken Burns - sağdan sola, hafif zoom */
+@keyframes kenBurns1 {
+  0%   { transform: scale(1.08) translate(1%, 0.5%); }
+  100% { transform: scale(1.0)  translate(-1%, -0.5%); }
+}
+@keyframes kenBurns2 {
+  0%   { transform: scale(1.0)  translate(-1.5%, 0); }
+  100% { transform: scale(1.1)  translate(0.5%, -1%); }
+}
+@keyframes kenBurns3 {
+  0%   { transform: scale(1.05) translate(0, 1%); }
+  100% { transform: scale(1.12) translate(-1%, -1%); }
+}
+@keyframes kenBurns4 {
+  0%   { transform: scale(1.1)  translate(1%, -0.5%); }
+  100% { transform: scale(1.02) translate(-0.5%, 0.5%); }
+}
+
+/* Ken Burns süresini 24 sn yap, fade ile aynı döngü */
+.hero-slide {
+  animation-duration: 24s, 24s;
+  animation-timing-function: ease-in-out, linear;
+  animation-iteration-count: infinite, infinite;
+  animation-fill-mode: both, both;
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
+  z-index: 1;
   background: linear-gradient(
     to bottom,
-    rgba(5,5,5,0.55) 0%,
-    rgba(5,5,5,0.7) 50%,
-    rgba(5,5,5,0.9) 100%
+    rgba(5,5,5,0.5) 0%,
+    rgba(5,5,5,0.65) 50%,
+    rgba(5,5,5,0.88) 100%
   );
 }
 
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 700px;
-  padding: 0 48px;
+  width: 100%;
+  max-width: 760px;
+  padding: 0 32px;
   padding-top: 100px;
+  text-align: center;
+}
+
+/* Hero ortalama modu */
+.hero-centered {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-centered .hero-sub::before {
+  display: none;
+}
+
+.hero-centered .hero-btns {
+  justify-content: center;
+}
+
+/* Hero avantajlar bandı */
+.hero-benefits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+  justify-content: center;
+}
+
+.hero-benefits span {
+  background: rgba(201, 168, 76, 0.12);
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  color: var(--gold-light);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 6px 14px;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+
+/* Hero telefon linki */
+.hero-phone {
+  margin-top: 18px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.hero-phone a {
+  color: rgba(255,255,255,0.65);
+  transition: color var(--transition);
+}
+
+.hero-phone a:hover {
+  color: var(--gold);
+}
+
+/* WhatsApp buton varyantı */
+.btn-wa {
+  background: linear-gradient(135deg, #25d366, #128c4a);
+  color: #fff;
 }
 
 .hero-sub {
@@ -313,6 +453,7 @@ img {
   margin-bottom: 20px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
 }
 
@@ -330,15 +471,17 @@ img {
   font-weight: 700;
   line-height: 1.05;
   margin-bottom: 24px;
+  text-align: center;
   text-shadow: 0 2px 30px rgba(0,0,0,0.5);
 }
 
 .hero-desc {
   font-size: 1.05rem;
   color: rgba(255,255,255,0.75);
-  margin-bottom: 40px;
+  margin: 0 auto 40px;
   max-width: 520px;
   line-height: 1.8;
+  text-align: center;
 }
 
 .hero-btns {
@@ -415,6 +558,21 @@ img {
   height: 60px;
   background: rgba(201, 168, 76, 0.25);
   flex-shrink: 0;
+}
+
+/* Yeni ikonlu stat item */
+.stat-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-light);
+  font-weight: 600;
 }
 
 /* =========================================
@@ -814,6 +972,7 @@ img {
   outline: none;
   transition: border-color var(--transition);
   -webkit-appearance: none;
+  appearance: none;
 }
 
 .form-group select {
@@ -1126,4 +1285,140 @@ img {
     width: 100%;
     clip-path: none;
   }
+
+  .wa-main-cta {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .hero-benefits {
+    justify-content: center;
+  }
+}
+
+/* =========================================
+   WHATSAPP MAIN CTA BANNER
+   ========================================= */
+.wa-main-cta {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: linear-gradient(135deg, #0d1f16 0%, #142e1e 100%);
+  border: 1px solid #25d366;
+  border-left: 5px solid #25d366;
+  padding: 28px 36px;
+  margin-bottom: 56px;
+  flex-wrap: wrap;
+}
+
+.wa-main-icon {
+  font-size: 3rem;
+  flex-shrink: 0;
+  animation: waPulse 2.5s ease infinite;
+}
+
+@keyframes waPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+.wa-main-text {
+  flex: 1;
+  min-width: 200px;
+}
+
+.wa-main-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #25d366;
+  margin-bottom: 6px;
+}
+
+.wa-main-num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.wa-main-sub {
+  font-size: 0.85rem;
+  color: var(--gray-light);
+  line-height: 1.5;
+}
+
+.btn-wa-big {
+  display: inline-block;
+  background: #25d366;
+  color: #fff;
+  font-family: var(--font-main);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  flex-shrink: 0;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+
+.btn-wa-big:hover {
+  background: #1ebe5c;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
+}
+
+/* WhatsApp öncelikli contact kartı */
+.contact-card-wa {
+  background: linear-gradient(135deg, #0d1f16 0%, #142e1e 100%) !important;
+  border-color: rgba(37, 211, 102, 0.35) !important;
+  grid-column: span 2;
+}
+
+.contact-card-wa h4 {
+  color: #25d366 !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contact-card-wa a {
+  color: var(--white) !important;
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+}
+
+.contact-card-wa a:hover {
+  color: #25d366 !important;
+}
+
+.badge-primary {
+  display: inline-block;
+  background: #25d366;
+  color: #fff;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+
+/* Form WhatsApp notu */
+.form-wa-note {
+  background: rgba(37, 211, 102, 0.08);
+  border-left: 3px solid #25d366;
+  color: var(--gray-light);
+  font-size: 0.82rem;
+  padding: 12px 16px;
+  margin-bottom: 24px;
+  line-height: 1.5;
 }
