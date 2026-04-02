@@ -532,6 +532,22 @@ img {
   z-index: 2;
 }
 
+.job-card-salary-overlay {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  color: var(--gold);
+  font-size: 1.3rem;
+  font-weight: 900;
+  padding: 10px 20px;
+  z-index: 4;
+  text-align: center;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.9), 0 2px 5px rgba(0,0,0,0.8);
+  white-space: nowrap;
+}
+
 .job-card-body {
   flex: 1;
   min-width: 0; /* Flexbox text overflow hatasını %100 çözer */
