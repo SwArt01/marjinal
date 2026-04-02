@@ -541,7 +541,24 @@ img {
   justify-content: center;
   align-items: flex-start;
   box-sizing: border-box;
-  overflow: hidden; /* Taşma varsa kes */
+}
+
+/* Etiketler (Konaklama, Maaş vs) */
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.card-tags span {
+  background: rgba(224, 64, 251, 0.08);
+  border: 1px solid rgba(224, 64, 251, 0.3);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 4px;
 }
 
 .job-card-num {
