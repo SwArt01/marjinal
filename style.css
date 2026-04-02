@@ -449,13 +449,16 @@ img {
   border-radius: 12px;
   overflow: hidden;
   transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-  min-width: calc(33.333% - 16px);
-  flex-shrink: 0;
+  width: 100%; 
+  flex: 0 0 100%; /* Sürgülü kısımda taşmayı engelle */
+  max-width: 100%;
   scroll-snap-align: start;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;        /* horizontal split */
+  align-items: stretch;
   box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-  min-height: 620px;
+  height: 480px; /* Boyut artırıldı */
+  box-sizing: border-box;
 }
 
 .job-card:hover {
@@ -466,23 +469,39 @@ img {
 
 .job-card-img {
   position: relative;
-  height: 420px;
+  flex: 0 0 45%; 
+  height: 100%;
   overflow: hidden;
-  flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 .job-card-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center center;
   transition: transform 0.6s ease;
-  filter: brightness(0.9);
+  filter: brightness(0.85);
 }
 
 .job-card:hover .job-card-img img {
   transform: scale(1.08);
-  filter: brightness(0.75);
+  filter: brightness(0.65);
+}
+
+.job-card-img h3 {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: 0px;
+  color: var(--white);
+  margin: 0;
+  z-index: 3;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.9), 0 2px 5px rgba(0,0,0,0.5);
+  line-height: 1.2;
 }
 
 /* Alt gradient üstüne yazı */
@@ -492,9 +511,10 @@ img {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 140px;
-  background: linear-gradient(to top, rgba(8, 15, 30, 0.98) 0%, rgba(8, 15, 30, 0.4) 60%, transparent 100%);
+  height: 180px;
+  background: linear-gradient(to top, rgba(8, 15, 30, 0.98) 0%, rgba(8, 15, 30, 0.5) 50%, transparent 100%);
   pointer-events: none;
+  z-index: 1;
 }
 
 .job-card-badge {
@@ -513,11 +533,15 @@ img {
 }
 
 .job-card-body {
-  padding: 24px 28px 28px;
+  flex: 1;
+  min-width: 0; /* Flexbox text overflow hatasını %100 çözer */
+  padding: 24px 30px;
   display: flex;
   flex-direction: column;
-  flex: 1;
-  gap: 0;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+  overflow: hidden; /* Taşma varsa kes */
 }
 
 .job-card-num {
@@ -529,58 +553,55 @@ img {
   margin-bottom: 8px;
 }
 
-.job-card-body h3 {
-  font-size: 1.05rem;
-  font-weight: 800;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--white);
-  margin-bottom: 12px;
-}
-
 .job-card-body p {
-  font-size: 0.86rem;
+  font-size: 0.95rem;
   color: var(--gray-light);
-  line-height: 1.75;
-  margin-bottom: 18px;
-  flex: 1;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  line-clamp: 3;
-  overflow: hidden;
+  line-height: 1.8;
+  margin-bottom: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 /* WhatsApp başvur butonu */
 .card-apply {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 12px;
   background: linear-gradient(135deg, #25d366, #128c4a);
   color: #fff;
+  border: none;
   font-family: var(--font-main);
-  font-weight: 700;
-  font-size: 0.82rem;
-  letter-spacing: 1.5px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  padding: 14px 20px;
-  border-radius: 6px;
-  margin-top: auto;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+  padding: 14px 32px;
+  border-radius: 50px;
+  margin-top: 16px;
+  transition: all 0.35s ease;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
-.card-apply::before {
-  content: '💬';
-  font-size: 1rem;
+.card-apply::after {
+  content: '>';
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #fff;
+  transition: transform 0.3s;
 }
 
 .card-apply:hover {
   background: linear-gradient(135deg, #1ebe5c, #0d7a3e);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(37, 211, 102, 0.5);
-  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.55);
+}
+
+.card-apply:hover::after {
+  transform: translateX(5px);
 }
 
 /* Hero ortalama modu */
@@ -1497,7 +1518,7 @@ img {
   }
 
   .job-card {
-    min-width: calc(50% - 10px);
+    min-width: calc(100%);
   }
 
   .hero-carousel-section {
@@ -1559,17 +1580,29 @@ img {
   }
 
   .carousel-btn {
-    width: 38px;
-    height: 38px;
-    font-size: 1.1rem;
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
   }
 
   .job-card {
-    min-width: calc(100% - 0px);
+    min-width: calc(100%);
+    flex-direction: column;
+    height: auto;
   }
 
   .job-card-img {
-    height: 180px;
+    width: 100%;
+    height: 300px;
+  }
+
+  .job-card-body {
+    width: 100%;
+    padding: 24px;
+  }
+  
+  .job-card-img h3 {
+    font-size: 1.6rem;
   }
 
   .gallery-grid {
