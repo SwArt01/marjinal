@@ -457,7 +457,8 @@ img {
   flex-direction: row;        /* horizontal split */
   align-items: stretch;
   box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-  height: 480px; /* Boyut artırıldı */
+  min-height: 420px; 
+  height: auto; /* İçeriğe göre otomatik uza */
   box-sizing: border-box;
 }
 
@@ -562,13 +563,8 @@ img {
   box-sizing: border-box;
   white-space: normal;
   word-wrap: break-word;
-  /* Yazının çok uzayıp butonu gizlemesini engeller: */
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  line-clamp: 3;
-  overflow: hidden;
 }
+
 
 /* WhatsApp başvur butonu */
 .card-apply {
