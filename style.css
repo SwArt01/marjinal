@@ -1605,19 +1605,20 @@ img {
 
   .job-card {
     min-width: calc(100%);
-    flex-direction: column;
-    height: auto;
+    display: block; /* Flex sütun yerine tamamen blok düzeni; yükseklik hatasını %100 çözer */
+    height: max-content !important; 
   }
 
   .job-card-img {
+    display: block;
     width: 100%;
     height: 300px;
   }
 
   .job-card-body {
+    display: block;
     width: 100%;
-    flex: none; /* Mobilde flex basis sorununu (kutunun buton hizasını kesmesi) çözer */
-    padding: 20px 20px 24px;
+    padding: 20px 20px 30px;
   }
   
   .job-card-body p {
