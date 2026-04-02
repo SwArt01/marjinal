@@ -284,7 +284,6 @@ img {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  overflow: hidden;
   padding-bottom: 60px;
 }
 
@@ -1600,6 +1599,7 @@ img {
 
   .job-card-body {
     width: 100%;
+    flex: none; /* Mobilde flex basis sorununu (kutunun buton hizasını kesmesi) çözer */
     padding: 20px 20px 24px;
   }
   
