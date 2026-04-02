@@ -1589,12 +1589,12 @@ img {
   }
 
   .hero-carousel-section {
-    padding: 0 16px;
+    padding: 0; /* Tele göre tam genişlik */
     margin-top: 32px;
   }
 
   .hero-carousel-wrap {
-    gap: 10px;
+    gap: 0; /* Kartlar arası sıfır boşluk (biri bitip diğeri başlar) */
   }
 
   .carousel-btn {
@@ -1607,6 +1607,9 @@ img {
     min-width: calc(100%);
     display: block; /* Flex sütun yerine tamamen blok düzeni; yükseklik hatasını %100 çözer */
     height: max-content !important; 
+    border-radius: 0; /* Tam boyut için köşeleri düzelt */
+    border-left: none; /* Yan çizgileri kaldır */
+    border-right: none;
   }
 
   .job-card-img {
