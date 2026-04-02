@@ -160,3 +160,56 @@ function showToast(msg, type = 'success') {
 }
 
 /* Slideshow aktif olduğu için parallax scroll devre dışı */
+
+/* === CAROUSEL / JOB LISTINGS === */
+const track = document.getElementById('servicesTrack');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const dotsContainer = document.getElementById('carouselDots');
+
+if (track && prevBtn && nextBtn && dotsContainer) {
+  const cards = track.querySelectorAll('.job-card');
+
+  const CARD_WIDTH = () => {
+    const card = cards[0];
+    if (!card) return 340;
+    const style = getComputedStyle(track);
+    const gap = parseInt(style.gap) || 20;
+    return card.offsetWidth + gap;
+  };
+
+  // Dots oluştur
+  cards.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', `İlan ${i + 1}`);
+    dot.addEventListener('click', () => {
+      track.scrollTo({ left: i * CARD_WIDTH(), behavior: 'smooth' });
+    });
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+  function updateState() {
+    const scrollLeft = track.scrollLeft;
+    const cw = CARD_WIDTH();
+    const activeIdx = Math.round(scrollLeft / cw);
+    dots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
+    prevBtn.disabled = scrollLeft <= 2;
+    nextBtn.disabled = scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    track.scrollBy({ left: -CARD_WIDTH(), behavior: 'smooth' });
+  });
+
+  nextBtn.addEventListener('click', () => {
+    track.scrollBy({ left: CARD_WIDTH(), behavior: 'smooth' });
+  });
+
+  track.addEventListener('scroll', updateState, { passive: true });
+  window.addEventListener('resize', updateState);
+  updateState();
+}
+
